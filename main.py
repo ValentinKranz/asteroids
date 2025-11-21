@@ -12,7 +12,7 @@ def main():
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
     print(f"Starting Asteroids with pygame version: {pygame.version.ver}")
-    print(f"""Screen width: {SCREEN_WIDTH}
+    print(f"""Screen width:     {SCREEN_WIDTH}
 Screen height: {SCREEN_HEIGHT}""")
     
     while True:
