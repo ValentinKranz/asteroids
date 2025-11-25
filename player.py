@@ -38,10 +38,9 @@ class Player(CircleShape):
             self.move(-dt)
         if keys[pygame.K_SPACE]:
             if self.shoot_cool_down_timer > 0:
-                pass
-            else:
-                self.shoot()
-                self.shoot_cool_down_timer = PLAYER_SHOOT_COOLDOWN_SECONDS
+                return
+            self.shoot()
+            self.shoot_cool_down_timer = PLAYER_SHOOT_COOLDOWN_SECONDS
     
     def move(self, dt):
         unit_vector = pygame.Vector2(0, 1)
