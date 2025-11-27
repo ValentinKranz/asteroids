@@ -2,13 +2,16 @@ import pygame
 import random
 import math
 from circleshape import CircleShape
-from constants import LINE_WIDTH, ASTEROID_MIN_RADIUS, ASTEROID_IRREGULARITY, ASTEROID_POINTS
+from constants import LINE_WIDTH, ASTEROID_MIN_RADIUS, ASTEROID_IRREGULARITY, ASTEROID_POINTS, ASTEROID_EXPLOSION_FRAGMENTS, ASTEROID_EXPLOSION_FRAGMENTS_RADIUS, ASTEROID_EXPLOSION_FRAGMENTS_LIFETIME
 from logger import  log_event
 
 class Asteroid(CircleShape):
     def __init__(self, x, y, radius):
         super().__init__(x, y, radius)
         self.points = self.generate_polygon()
+        self.damaging = True
+        self.shootable = True
+        self.lifetime = None
 
     def generate_polygon(self, irregularity = ASTEROID_IRREGULARITY, points = ASTEROID_POINTS):
         shape = []
@@ -30,6 +33,23 @@ class Asteroid(CircleShape):
     
     def update(self, dt):
         self.position += self.velocity * dt
+
+        if self.lifetime is not None:
+            self.lifetime -= dt
+            if self.lifetime <= 0:
+                self.kill()
+
+    def explode(self):
+        angle_step = 360 / ASTEROID_EXPLOSION_FRAGMENTS
+
+        for i in range(ASTEROID_EXPLOSION_FRAGMENTS):
+            angle = i * angle_step
+            direction = self.velocity.rotate(angle).normalize()
+            fragment = Asteroid(self.position.x, self.position.y, ASTEROID_EXPLOSION_FRAGMENTS_RADIUS)
+            fragment.damaging = False
+            fragment.shootable = False
+            fragment.lifetime = ASTEROID_EXPLOSION_FRAGMENTS_LIFETIME
+            fragment.velocity = direction * (self.velocity.length() * 2)
 
     def split(self):
         self.kill()
