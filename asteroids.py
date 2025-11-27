@@ -2,7 +2,7 @@ import pygame
 import random
 import math
 from circleshape import CircleShape
-from constants import LINE_WIDTH, ASTEROID_MIN_RADIUS, ASTEROID_IRREGULARITY, ASTEROID_POINTS, ASTEROID_EXPLOSION_FRAGMENTS, ASTEROID_EXPLOSION_FRAGMENTS_RADIUS, ASTEROID_EXPLOSION_FRAGMENTS_LIFETIME
+from constants import LINE_WIDTH, ASTEROID_MIN_RADIUS, ASTEROID_IRREGULARITY, ASTEROID_POINTS, ASTEROID_EXPLOSION_FRAGMENTS, ASTEROID_EXPLOSION_FRAGMENTS_RADIUS, ASTEROID_EXPLOSION_FRAGMENTS_LIFETIME, ASTEROID_SCORE_POINT
 from logger import  log_event
 
 class Asteroid(CircleShape):
@@ -12,6 +12,7 @@ class Asteroid(CircleShape):
         self.damaging = True
         self.shootable = True
         self.lifetime = None
+        self.score_point = ASTEROID_SCORE_POINT
 
     def generate_polygon(self, irregularity = ASTEROID_IRREGULARITY, points = ASTEROID_POINTS):
         shape = []

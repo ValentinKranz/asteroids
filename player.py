@@ -8,6 +8,7 @@ class Player(CircleShape):
         super().__init__(x, y, radius)
         self.rotation = 0
         self.shoot_cool_down_timer = 0
+        self.score = 0
 
     def triangle(self):
         #A player will look like a triangle, even though we'll use a circle to represent its hitbox. The math of drawing a triangle can be a bit tricky, so we've written the method for you
